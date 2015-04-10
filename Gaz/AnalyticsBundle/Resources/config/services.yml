@@ -1,0 +1,4 @@
+services:
+#    gaz_analytics.example:
+#        class: Gaz\AnalyticsBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
