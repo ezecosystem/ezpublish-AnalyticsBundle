@@ -7,6 +7,7 @@
 namespace Gaz\AnalyticsBundle\Helper;
 
 use eZ\Publish\API\Repository\ContentService;
+use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\API\Repository\Values\Content\Content;
@@ -30,6 +31,9 @@ class TrackingInformationHelper {
     /** @var \eZ\Publish\API\Repository\UserService  */
     protected $userService;
 
+    /** @var \eZ\Publish\API\Repository\ContentTypeService  */
+    protected $contentTypeService;
+
     /** @var ContainerInterface */
     protected $container;
 
@@ -40,12 +44,14 @@ class TrackingInformationHelper {
                           LocationService $locationService,
                           ContentService $contentService,
                           UserService $userService,
+                          ContentTypeService $contentTypeService,
                           ContainerInterface $container,
                           LoggerInterface $logger){
         $this->configResolver = $configResolver;
         $this->locationService = $locationService;
         $this->contentService = $contentService;
         $this->userService = $userService;
+        $this->contentTypeService = $contentTypeService;
         $this->container = $container;
         $this->logger = $logger;
     }
@@ -54,19 +60,19 @@ class TrackingInformationHelper {
      * Populates an array with user data. This data is used to track
      * data in both Google and Webtrends
      *
+     * @todo better to use session data here?
+     * @todo try catches?
+     *
      * @param User $user
      * @return array
      */
     public function getCurrentUserInformation( User $user ){
 
-        // @todo better to use session data here?
-        $session = $this->container->get('session');
-
         $userDetails = array();
 
-        $userDetails['sams_parent_company_name']  = 'local-user';//GA/WT
-        $userDetails['sams_parent_account_id']    = 'local-user';//GA/WT
-        $userDetails['acc_id']                    = 'local-user-' . $user->getVersionInfo()->getContentInfo()->id;
+        $userDetails['userAccountId'] = $user->getVersionInfo()->getContentInfo()->id;
+        $userContentTypeId = $user->getVersionInfo()->getContentInfo()->contentTypeId;
+        $userDetails['userClassIdentifier'] = $this->contentTypeService->loadContentType( $userContentTypeId )->getName( 'eng-GB' );
 
         return $userDetails;
     }

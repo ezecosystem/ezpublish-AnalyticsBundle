@@ -9,5 +9,6 @@ services:
             - @ezpublish.api.service.location
             - @ezpublish.api.service.content
             - @ezpublish.api.service.user
+            - @ezpublish.api.service.content_type
             - @service_container
             - @logger

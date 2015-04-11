@@ -46,8 +46,8 @@ class GoogleAnalyticsController extends Controller{
 
         return $this->render(
             'GazAnalyticsBundle::google_script.html.twig',
-            array( 'google_options'     => $googleOptions,
-                   'user_details'       => $userDetails
+            array( 'googleOptions'    => $googleOptions,
+                   'userDetails'      => $userDetails
             ),
             $response
         );
