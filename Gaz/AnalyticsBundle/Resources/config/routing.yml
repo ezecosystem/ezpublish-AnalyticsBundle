@@ -1,3 +1,0 @@
-gaz_analytics_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: GazAnalyticsBundle:Default:index }

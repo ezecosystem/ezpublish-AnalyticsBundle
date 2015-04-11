@@ -1,4 +1,13 @@
+parameters:
+    gaz_analytics.tracking_information.class: Gaz\AnalyticsBundle\Helper\TrackingInformationHelper
+
 services:
-#    gaz_analytics.example:
-#        class: Gaz\AnalyticsBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    gaz_analytics.tracking_information:
+        class: %gaz_analytics.tracking_information.class%
+        arguments:
+            - @ezpublish.config.resolver
+            - @ezpublish.api.service.location
+            - @ezpublish.api.service.content
+            - @ezpublish.api.service.user
+            - @service_container
+            - @logger
