@@ -19,7 +19,7 @@
 
     ga( 'set', 'dimension2', '{{ ( user_details.sams_parent_company_name is defined ) ? user_details.sams_parent_company_name : 'not-set' }}'); {# KCParentCompanyName #}
 
-    {% if global_report_id %}
+    {% if global_report_id is defined %}
     ga( 'set', 'dimension3', '{{ global_report_id }}' ); {# KCReportID #}
 
     ga( 'set', 'metric1', 1 ); {# Metric tracking for better reports #}

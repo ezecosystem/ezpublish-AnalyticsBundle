@@ -59,39 +59,14 @@ class TrackingInformationHelper {
      */
     public function getCurrentUserInformation( User $user ){
 
+        // @todo better to use session data here?
         $session = $this->container->get('session');
-
-        $isMasquerade = $session->get( 'masquerade' );
-
-        // it's vital we append -masked to all masqueraded page views.
-        // This prevents false positives appearing in the data provided to clients.
-        $maskedString = $isMasquerade ? '-masked' : '';
 
         $userDetails = array();
 
-        $samsUserHashType = $this->configResolver->getParameter( 'password_hash.sams', 'gaz' );
-
-        $localUserHashType = $this->configResolver->getParameter( 'password_hash.local', 'gaz' );
-
-        //sams users
-        if( $user->hashAlgorithm == $samsUserHashType ){
-
-            $userDetails['sams_parent_company_name']  = $session->get( 'companyName') . $maskedString;//GA/WT
-            $userDetails['sams_parent_account_id']    = $session->get('samsCompanyId') . $maskedString;//GA/WT
-            $userDetails['acc_id']                    = $session->get('samsUserId') . $maskedString;//GA/WT
-            $userDetails['full_name']                 = $session->get( 'userFullName' ) . $maskedString;//WT
-            $userDetails['email']                     = $user->email . $maskedString;//WT
-            $userDetails['sams_account_manager_name'] = $session->get( 'userAccountManger' ) . $maskedString;//WT
-            $userDetails['job_title']                 = $session->get( 'userJobTitle' ) . $maskedString;//WT
-            $userDetails['job_group']                 = $session->get( 'userJobGroup' ) . $maskedString;//WT
-        }
-        //allow tracking of admin users
-        elseif( $user->hashAlgorithm == $localUserHashType ){
-
-            $userDetails['sams_parent_company_name']  = 'local-user';//GA/WT
-            $userDetails['sams_parent_account_id']    = 'local-user';//GA/WT
-            $userDetails['acc_id']                    = 'local-user-' . $user->getVersionInfo()->getContentInfo()->id;//GA/WT
-        }
+        $userDetails['sams_parent_company_name']  = 'local-user';//GA/WT
+        $userDetails['sams_parent_account_id']    = 'local-user';//GA/WT
+        $userDetails['acc_id']                    = 'local-user-' . $user->getVersionInfo()->getContentInfo()->id;
 
         return $userDetails;
     }
