@@ -78,7 +78,12 @@ class TrackingInformationHelper {
     }
 
     /**
-     * Sets the relevant tracking data for the report currently being viewed
+     * Sets some custom tracking data for the page currently being viewed.
+     * Use this as a base to set any custom data you want to send to analytics.
+     * For example, LocationId, ContentId or a content field.
+     *
+     * You should call this method in your controller where you have complete control
+     * over the caching mechanisms.
      *
      * Does not return any data - sets it to global twig variables. Implemented
      * this way because you can't pass objects around twig templates when http cache
@@ -91,8 +96,11 @@ class TrackingInformationHelper {
      */
     public function setTrackingDataForCurrentPage( Location $location, Content $content ){
 
-        // report id
-        $this->container->get( 'twig' )->addGlobal( 'global_report_id', $content->contentInfo->remoteId );
+        // Google dimension1
+        $this->container->get( 'twig' )->addGlobal( 'google_dimension_3', $content->contentInfo->remoteId );
+
+        // Google dimension2
+        $this->container->get( 'twig' )->addGlobal( 'google_dimension_4', $location->remoteId );
 
     }
 

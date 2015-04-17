@@ -18,12 +18,20 @@
 
     ga( 'set', 'dimension2', '{{ ( userDetails.userClassIdentifier is defined ) ? userDetails.userClassIdentifier : 'not-set' }}' ); {# userClassIdentifier #}
 
-{% if global_report_id is defined %}
-    ga( 'set', 'dimension3', '{{ global_report_id }}' ); {# KCReportID #}
+{% if google_dimension_3 is defined %}
+    ga( 'set', 'dimension3', '{{ google_dimension_3 }}' ); {# Custom Dimension 3 #}
 
     ga( 'set', 'metric1', 1 ); {# Metric tracking for better reports #}
 
-    ga( 'send', 'event', 'Report Viewed', '{{ global_report_id }}' );
+    ga( 'send', 'event', 'Dimension 3 Viewed', '{{ google_dimension_3 }}' );
+{% endif %}
+
+{% if google_dimension_4 is defined %}
+    ga( 'set', 'dimension4', '{{ google_dimension_4 }}' ); {# Custom Dimension 4 #}
+
+    ga( 'set', 'metric2', 1 ); {# Metric tracking for better reports #}
+
+    ga( 'send', 'event', 'Dimension 4 Viewed', '{{ google_dimension_4 }}' );
 {% endif %}
 
 </script>
