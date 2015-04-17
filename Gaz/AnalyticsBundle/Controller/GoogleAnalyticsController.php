@@ -3,7 +3,7 @@
  * @class GoogleAnalyticsController
  *
  * @package Gaz\AnalyticsBundle\Controller
- * @author Gareth Arnott
+ * @author GazofNaz
  *
  * Class renders the content for Google analytics to function on the site
  */
@@ -11,7 +11,6 @@
 namespace Gaz\AnalyticsBundle\Controller;
 
 use eZ\Bundle\EzPublishCoreBundle\Controller;
-use eZ\Publish\Core\Repository\Values\User\User;
 use Symfony\Component\HttpFoundation\Response;
 
 class GoogleAnalyticsController extends Controller{
